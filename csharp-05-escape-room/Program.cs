@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace csharp05escaperoom
 {
@@ -134,6 +135,15 @@ namespace csharp05escaperoom
     }//End Sight Class
 
 
+    //Sight List Class
+    public class SightList {
+        public List<object> sights = new List<object>();
+        public void AddSight(object newSight){
+            sights.Add(newSight);
+        }
+    } 
+
+
     //NPC Class
     public class Npc {
         public string CharacterName { get; set; }
@@ -141,7 +151,7 @@ namespace csharp05escaperoom
 
         public static string Instructions = "Add an instance of the Npc class to create non-player characters that the player can interact with.\n" +
             "Players can use the talk <Character> command to return one of the characters phrases.";
-        public static string PrintInstructions(){
+        public static void PrintInstructions(){
             Console.WriteLine(Instructions);
         }
 
@@ -161,10 +171,47 @@ namespace csharp05escaperoom
 
     }
 
+
+    //Commands Class
+    public class CommandList {
+        public List<object> Commands { get; private set; } = new List<object>();
+        public void AddCommand(object newCommand){
+            Commands.Add(newCommand);
+        }
+
+        public CommandList() {
+            Console.WriteLine("Command List Created");
+        }
+    }//End Command
+
+
+    //Look Command
+    public class Look {
+        public string CommandName { get; private set; } = "look";
+        public string HelpCommand { get; private set; } = "Returns the description of a target Sight\n" +
+            "Use: \"look <Sight>\"\n" +
+            "Example: \"look birds\"\n" +
+            "The birds are sitting in the tree peacefully, chirping away";
+
+        public Boolean IsCommand { get; private set; } = true;
+
+        public void FunctionCall(string lookTarget){
+            Console.WriteLine("looking at " + lookTarget);
+        }
+
+	    public Look(){
+	        Console.WriteLine("Look command created");
+	    }
+    }//End Look Command
+
     class MainClass {
         public static void Main(string[] args) {
             Room computerRoom = new Room("Computer Room", "You find yourself in the basement in the Computer Room.  It smells like sweat and frustration.  You see a Macbook on a plain white desk surrounded by b.. soda cans.  There are two monitors flanking the Macbook, predictably.  Logan is sleeping on the floor.");
-
+            CommandList commandList = new CommandList();
+            Look look = new Look();
+            commandList.AddCommand(look);
+            Console.WriteLine(commandList.Commands[0].ToString());
+            Console.WriteLine(look.HelpCommand);
 
         }
     }
