@@ -188,15 +188,21 @@ namespace csharp05escaperoom
     //Look Command
     public class Look {
         public string CommandName { get; private set; } = "look";
-        public string HelpCommand { get; private set; } = "Returns the description of a target Sight\n" +
-            "Use: \"look <Sight>\"\n" +
-            "Example: \"look birds\"\n" +
-            "The birds are sitting in the tree peacefully, chirping away";
+        public string HelpCommand { get; private set; } = "\n" + 
+            "- Returns the description of a target Sight\n" +
+            "- Use: \"look <Sight>\"\n" +
+            "- Example: \"look birds\"\n" +
+            "- The birds are sitting in the tree peacefully, chirping away";
 
         public Boolean IsCommand { get; private set; } = true;
 
         public void FunctionCall(string lookTarget){
             Console.WriteLine("looking at " + lookTarget);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[Look: \nCommandName = {0}, \nHelpCommand = {1}, \nIsCommand = {2}]", CommandName, HelpCommand, IsCommand);
         }
 
 	    public Look(){
@@ -210,7 +216,7 @@ namespace csharp05escaperoom
             CommandList commandList = new CommandList();
             Look look = new Look();
             commandList.AddCommand(look);
-            Console.WriteLine(commandList.Commands[0].ToString());
+            Console.WriteLine(commandList.Commands[0]);
             Console.WriteLine(look.HelpCommand);
 
         }
