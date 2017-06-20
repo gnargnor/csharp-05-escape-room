@@ -118,6 +118,8 @@ namespace csharp05escaperoom
             Console.WriteLine(Instructions);
         }
 
+        public bool Exists { get; private set; } = true;
+
         public void LookSight() {
             Console.WriteLine(SightDescription);
         }
@@ -156,8 +158,10 @@ namespace csharp05escaperoom
         }
 
         public void Speak(){
-            Console.WriteLine(CharacterName + "says \"Hello there!\"");
+            Console.WriteLine(CharacterName + " says, \"Hello there!\"");
         }
+
+        public bool Exists { get; private set; }= true;
 
         public Npc(string characterName, string characterDescription){
             CharacterName = characterName;
@@ -191,8 +195,8 @@ namespace csharp05escaperoom
         public string HelpCommand { get; private set; } = "\n" + 
             "- Returns the description of a target Sight\n" +
             "- Use: \"look <Sight>\"\n" +
-            "- Example: \"look birds\"\n" +
-            "- The birds are sitting in the tree peacefully, chirping away";
+            "- Example: \"look birds\" returns:\n" +
+            "- The birds are sitting in the tree peacefully, chirping away.";
 
         public Boolean IsCommand { get; private set; } = true;
 
@@ -215,8 +219,17 @@ namespace csharp05escaperoom
             Room computerRoom = new Room("Computer Room", "You find yourself in the basement in the Computer Room.  It smells like sweat and frustration.  You see a Macbook on a plain white desk surrounded by b.. soda cans.  There are two monitors flanking the Macbook, predictably.  Logan is sleeping on the floor.");
             CommandList commandList = new CommandList();
             Look look = new Look();
+            Sight bird = new Sight("bird", "It's flying gracefully through the sky! CaCAW!");
+            if (bird.Exists) {
+                bird.LookSight();
+            }
+            Npc benBizzey = new Npc("Ben Bizzey", "He looks like he's been keepin' real busy.");
+            if (benBizzey.Exists) {
+                benBizzey.Speak();
+            }
+
             commandList.AddCommand(look);
-            Console.WriteLine(commandList.Commands[0]);
+            //Console.WriteLine(commandList.Commands.Contains(look));
             Console.WriteLine(look.HelpCommand);
 
         }
